@@ -15,7 +15,7 @@ struct CarouselView: View {
             // Image Carousel with default images based on the category
             TabView(selection: $viewModel.currentIndex) {
                 ForEach(viewModel.categories.indices, id: \.self) { index in
-                
+                    
                     Image(viewModel.categoryImages[viewModel.categories[index], default: "placeholder"])
                         .resizable()
                         .scaledToFill()
@@ -28,7 +28,7 @@ struct CarouselView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(height: 200)
-
+            
             //Page Indicator
             HStack {
                 ForEach(0..<viewModel.categories.count) { index in
@@ -48,13 +48,23 @@ struct CarouselView: View {
             }
             .animation(.easeInOut, value: viewModel.currentIndex)
             .padding(.top, 8)
-
+            
             // Search Bar using a Textfield input
-            TextField("Search Images", text: $viewModel.searchTerm)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .frame(width: 390)
-
+            HStack {
+                
+                TextField("Search Images", text: $viewModel.searchTerm)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .frame(width: 390)
+                    .background(
+                        Rectangle()
+                            .frame(height: 60)
+                            .cornerRadius(5)
+                            .opacity(0.3))
+                
+                
+            }
+            
             // Items to be listed in List View
             ScrollView {
                 VStack {
@@ -79,9 +89,8 @@ struct CarouselView: View {
         }
     }
 }
-
-struct CarouselView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarouselView()
+    struct CarouselView_Previews: PreviewProvider {
+        static var previews: some View {
+            CarouselView()
+        }
     }
-}
